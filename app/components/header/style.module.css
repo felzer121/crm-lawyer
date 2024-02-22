@@ -1,0 +1,23 @@
+.header {
+    height: 77px;
+    width: 100%;
+    padding-right: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #fff;
+    border-bottom: #E0E0E0 solid 1px;
+}
+.headerBtn {
+    color: #515155!important;
+    background-color: #F0F0F0!important;
+    border-radius: 8px!important;
+    width: 54px!important;
+    height: 54px!important;
+}
+.headerAvatar {
+    color: #515155!important;
+    border-radius: 8px!important;
+    width: 54px!important;
+    height: 54px!important;
+}

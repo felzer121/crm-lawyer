@@ -1,0 +1,64 @@
+.sidebar {
+    width: 100px;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.sidebar__logo {
+    margin: 12px 0;
+}
+.sidebar__logoContainer {
+    display: flex;
+    justify-content: center;
+    border-bottom: solid 1px rgba(224, 224, 224, .1);
+    width: 100%;
+}
+.sidebar__btnWidth {
+    position: absolute!important;
+    border-radius: 50%!important;
+    min-width: 24px!important;
+    padding: 0!important;
+    border: #E0E0E0 1px solid!important;
+    width: 24px!important;
+    height: 24px!important;
+    color: #515155!important;
+    background-color: #fff!important;
+    top: 86px!important;
+    right: -12px!important;
+}
+.sidebar__menu {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+}
+.sidebar__menuItem {
+    color: #D4D4D4;
+    margin-right: 14px;
+}
+.sidebar__menuLink {
+    width: 100%;
+}
+.sidebar__menuActiveItem {
+    display: flex;
+    justify-content: center;
+    border: #754DCE 1px solid;
+    border-left: none;
+    background-color: #1D1E20;
+    margin-right: 14px;
+    border-radius: 0 8px 8px 0;
+}
+.sidebar__menuItemBtn {
+    width: 100%!important;
+    color: #D4D4D4!important;
+}
+.sidebar__menuActiveItemBtn {
+    width: 100%!important;
+    color: #754DCE!important;  
+    padding: 10px 0!important;
+}

@@ -1,0 +1,11 @@
+.adminContainer {
+    display: flex;
+}
+.adminContainer__block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.adminContainer__content {
+    padding: 20px 30px;
+}
