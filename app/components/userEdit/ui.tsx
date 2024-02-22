@@ -90,6 +90,11 @@ const UserEdit = () => {
           </span>
         </div>
       </div>
+      <div className={styles.userEdit__button}>
+        <Button variant="contained" className={styles.userEdit__btn}>
+          Сохранить профиль
+        </Button>
+      </div>
     </section>
   );
 };
