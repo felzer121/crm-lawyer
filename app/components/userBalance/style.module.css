@@ -1,0 +1,12 @@
+.container {
+    position: relative;
+    padding: 1em;
+    background-color: #fff;
+    border-radius: 12px;
+    display: grid;
+    gap: 1.125em;
+    height: calc(40vh - 66px);
+    border: solid 1px #E0E0E0;
+}
+.UserBalance__table {
+}

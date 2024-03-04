@@ -3,6 +3,7 @@
     width: 100%;
     padding-right: 4em;
     display: flex;
+    gap: 1em;
     align-items: center;
     justify-content: flex-end;
     background-color: #fff;
@@ -20,4 +21,21 @@
     border-radius: 8px!important;
     width: 54px!important;
     height: 54px!important;
+}
+.headerBalance {
+    display: grid;
+    gap: .1em;
+    margin-left: 1.4em;
+}
+.headerBalance__number {
+    display: grid;
+    justify-content: flex-end;
+    color: #0D0D17;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+.headerBalanceTxt {
+    color: #A9A9A9;
+    font-size: .9em;
+    font-weight: 500;
 }

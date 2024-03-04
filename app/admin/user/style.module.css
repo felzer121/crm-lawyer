@@ -1,4 +1,10 @@
 .userPage {
     display: grid;
+    gap: 1em;
+    height: calc(100vh - 117px);
     grid-template-columns: 1fr 1fr;
+}
+.userController {
+    display: grid;
+    gap: 1em;
 }

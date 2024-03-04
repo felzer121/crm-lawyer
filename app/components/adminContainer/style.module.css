@@ -1,5 +1,6 @@
 .adminContainer {
     display: flex;
+    background-color: #F5F5F5;
 }
 .adminContainer__block {
     width: 100%;
