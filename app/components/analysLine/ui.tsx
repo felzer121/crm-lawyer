@@ -70,12 +70,16 @@ function StepIcon(props: StepIconProps) {
 
 const steps = ["1", "2", "3", "4"];
 
-const AnalysLine = () => {
+interface AnalysLineProps {
+  step: number;
+}
+
+const AnalysLine = ({ step }: AnalysLineProps) => {
   return (
     <div className={styles.analys__line}>
       <Stepper
         alternativeLabel
-        activeStep={1}
+        activeStep={step}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (

@@ -3,6 +3,7 @@ import AdminContainer from "@/app/components/adminContainer/ui";
 import Sidebar from "../../components/sidebar/ui";
 import styles from "./style.module.css";
 import {
+  Alert,
   Button,
   Container,
   List,
@@ -21,57 +22,59 @@ import {
 import { DateTime } from "luxon";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 import AnalysLine from "@/app/components/analysLine/ui";
+import React, { useEffect } from "react";
+import AnalysCalendar from "@/app/components/analysBlock/analysCalendar";
+import AnalysSuccess from "@/app/components/analysBlock/analysSuccess";
+import dynamic from "next/dynamic";
 
-function ToolbarCalendar(props: DatePickerToolbarProps<DateTime>) {
-  const { value, className } = props;
-  return (
-    // Propagate the className such that CSS selectors can be applied
-    <div className={styles.analys__toolbar}>
-      <div className={styles.analys__toolbarTitle}>
-        <span>Выбранная дата</span>
-      </div>
+const DynamicGetAnalysBlock = dynamic(
+  () => import("@/app/components/analysBlock/getAnalysBlock"),
+  {
+    ssr: false,
+  }
+);
 
-      <div className={styles.analys__toolbarDate}>
-        <p className={styles.analys__toolbarDateItem}>
-          {value ? (
-            value.setLocale("ru").toLocaleString(DateTime.DATE_FULL)
-          ) : (
-            <span style={{ fontSize: "1.8em" }}>--</span>
-          )}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function ActionList(props: PickersActionBarProps) {
-  const { onAccept, onClear, onSetToday, className } = props;
-
-  return (
-    // Propagate the className such that CSS selectors can be applied
-    <div className={styles.actionBar}>
-      <Button className={styles.actionBarCancel} onClick={onSetToday}>
-        Сбросить
-      </Button>
-      <Button
-        className={styles.actionBarAccept}
-        variant="contained"
-        onClick={onAccept}
-      >
-        Продолжить
-      </Button>
-    </div>
-  );
+export interface StepType {
+  value: number;
+  question: null | number | "success" | "decline";
+  variant: "old" | "year" | "half-year" | "mouth" | null;
 }
 
 export default function Analysis() {
+  const [step, setStep] = React.useState<StepType>({
+    value: 1,
+    variant: null,
+    question: null,
+  });
+  const [date, setDate] = React.useState<DateTime | null>(null);
+
+  React.useEffect(() => {
+    if (date) {
+      if (date.plus({ days: 30 }) > DateTime.now())
+        setStep((val) => {
+          return { ...val, variant: "mouth", value: 4 };
+        });
+      else if (date.plus({ month: 6 }) > DateTime.now())
+        setStep((val) => {
+          return { ...val, variant: "half-year", value: 2 };
+        });
+      else if (date.plus({ year: 1 }) > DateTime.now())
+        setStep((val) => {
+          return { ...val, variant: "year", value: 2 };
+        });
+      else
+        setStep((val) => {
+          return { ...val, variant: "old", value: 2 };
+        });
+    }
+  }, [date]);
   return (
     <AdminContainer>
       <Container maxWidth="lg">
         <section className={styles.container}>
           <div className={styles.analys__container}>
             <div className={styles.analys__leftBlock}>
-              <AnalysLine />
+              <AnalysLine step={step.value} />
               <div className={styles.analys__illustration}>
                 <Image
                   src="/analys_1.svg"
@@ -84,45 +87,12 @@ export default function Analysis() {
                 />
               </div>
             </div>
-            <div className={styles.analys__content}>
-              <h3 className={styles.analys__title}>
-                Сделка в процедуре банкротства
-              </h3>
-              <div className={styles.analys__about}>
-                <h5 className={styles.analys__aboutTitle}>Информация</h5>
-                <p className={styles.analys__aboutTxt}>
-                  Введите дату совершения сделки и ответьте на вопросы чтобы
-                  узнать возможно ли оспорить сделку{" "}
-                </p>
-              </div>
-              <LocalizationProvider
-                dateAdapter={AdapterLuxon}
-                adapterLocale="ru"
-              >
-                <StaticDatePicker
-                  slots={{
-                    toolbar: ToolbarCalendar,
-                    actionBar: ActionList,
-                  }}
-                  sx={{
-                    ".MuiPickersDay-root": {
-                      color: "#0D0D17",
-                      borderRadius: 1,
-                      fontFamily: "inherit",
-                      fontWeight: "500",
-                      borderWidth: 1,
-                      border: "1px solid #EDEDED",
-                    },
-                    ".Mui-selected": {
-                      color: "#fff",
-                      backgroundColor: "#0D0D17!important",
-                    },
-                  }}
-                  className={styles.analys__date}
-                  orientation="landscape"
-                />
-              </LocalizationProvider>
-            </div>
+            <DynamicGetAnalysBlock
+              date={date}
+              step={step}
+              setStep={setStep}
+              setDate={setDate}
+            />
           </div>
         </section>
       </Container>
